@@ -1,0 +1,107 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #00FF00, #0000FF);
+  padding: 10px 0;
+}
+
+.nav {
+  display: flex;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  
+}
+
+.nav-item {
+  margin-left:20px;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: #333; /* or any color you prefer */
+}
+
+.main-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust the height as needed */
+}
+
+.logo-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 200%; 
+}
+
+.swiper-slide-custom {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.swiper-slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* .caption-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+} */
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  background-color: white; /* Set the background color to white */
+  color: blue; /* Set the text color to blue */
+  width: 80%; /* Adjust width as needed */
+  height:100px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  
+ 
+}
+.blue-text {
+  color: #0000FF;
+}
+
+.green-text {
+  color: #00FF00;
+}
+/* @keyframes slideIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+} */
