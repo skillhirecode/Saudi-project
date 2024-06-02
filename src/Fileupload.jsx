@@ -3,12 +3,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import authService from './Service/authService';
 
+
 const FileUpload = () => {
   const [formData, setFormData] = useState({
     name: '',
     age: '',
     mark: '',
-    file: null,
+    profilePic: null,
   });
   const goto = useNavigate();
 
@@ -22,18 +23,19 @@ const FileUpload = () => {
   const handleFileChange = (e) => {
     setFormData({
       ...formData,
-      file: e.target.files[0],
+      profilePic: e.target.files[0],
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = authService.getCurrentUser();
+     const user = authService.getCurrentUser();
+    
     const data = new FormData();
     data.append('name', formData.name);
     data.append('age', formData.age);
     data.append('mark', formData.mark);
-    data.append('fileUpload', formData.file); // Ensure this matches the field name in Multer
+    data.append('profilePic', formData.profilePic); // Ensure this matches the field name in Multer
 
     try {
       const response = await axios.post('http://localhost:5000/api/users', data, {
@@ -65,7 +67,7 @@ const FileUpload = () => {
       </div>
       <div>
         <label>File Upload:</label>
-        <input type="file" name="fileUpload" onChange={handleFileChange} required />
+        <input type="file" name="profilePic" onChange={handleFileChange} required />
       </div>
       <button type="submit">Submit</button>
     </form>
