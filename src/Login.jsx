@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css'; 
+import authService from './Service/authService';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const goto = useNavigate();
+  
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+        await authService.login(email, password);
+        goto("/admin");
+      } catch (err) {
+        setError("Invalid credentials");
+      }
+    };
+    useEffect(
+        ()=>{
+            const isLoggedIn = authService.getCurrentUser();
+            if(isLoggedIn){
+                goto("/admin");
+            } 
+        },[]
+    )
     return (
         <div className="login-container">
             <div className="login-box">
                 <h2>Login</h2>
-                <form>
-                    <input type="text" placeholder="Username" />
-                    <input type="password" placeholder="Password" />
+                <form onSubmit={handleLogin}>
+                    <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="password" placeholder="Password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
                     <div className="form-group">
                         <input type="checkbox" id="remember-me" />
                         <label htmlFor="remember-me">Remember Me</label>

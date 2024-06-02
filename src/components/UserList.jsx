@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 
-const UserList = () => {
-  const [users, setUsers] = useState([
-    { id: 1, name: 'John Doe', title: 'Developer', description: 'Software Developer' },
-    { id: 2, name: 'Jane Smith', title: 'Designer', description: 'Graphic Designer' },
-  ]);
+const UserList = ({users,setData}) => {
+  
 
   const handleDelete = (id) => {
-    setUsers(users.filter(user => user.id !== id));
+    setData(users.filter(user => user.id !== id));
   };
 
   const handleEdit = (id) => {
@@ -20,8 +17,9 @@ const UserList = () => {
       <thead>
         <tr>
           <th>Name</th>
-          <th>Title</th>
-          <th>Description</th>
+          <th>Age</th>
+          <th>Mark</th>
+          <th>Image</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -29,8 +27,11 @@ const UserList = () => {
         {users.map(user => (
           <tr key={user.id}>
             <td>{user.name}</td>
-            <td>{user.title}</td>
-            <td>{user.description}</td>
+            <td>{user.age}</td>
+            <td>{user.mark}</td>
+            <td>{user.profilePic && (
+        <img src={`data:image/jpeg;base64,${user.profilePic}`} alt="Profile" height={100} width={100}/>
+      )}</td>
             <td>
               <Button variant="warning" onClick={() => handleEdit(user.id)}>Edit</Button>
               {' '}

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import authService from './Service/authService';
 
 const FileUpload = () => {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
-    password: '',
-    id: '',
+    age: '',
+    mark: '',
     file: null,
   });
+  const goto = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -26,19 +28,21 @@ const FileUpload = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const user = authService.getCurrentUser();
     const data = new FormData();
     data.append('name', formData.name);
-    data.append('email', formData.email);
-    data.append('password', formData.password);
-    data.append('id', formData.id);
-    data.append('fileUpload', formData.file);
+    data.append('age', formData.age);
+    data.append('mark', formData.mark);
+    data.append('fileUpload', formData.file); // Ensure this matches the field name in Multer
 
     try {
-      const response = await axios.post('/api/users/upload', data, {
-        headers: {
+      const response = await axios.post('http://localhost:5000/api/users', data, {
+        headers: { 
+          Authorization: `Bearer ${user.token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
+      goto("/admin");
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -52,16 +56,12 @@ const FileUpload = () => {
         <input type="text" name="name" value={formData.name} onChange={handleChange} required />
       </div>
       <div>
-        <label>Email:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        <label>Age:</label>
+        <input type="text" name="age" value={formData.age} onChange={handleChange} required />
       </div>
       <div>
-        <label>Password:</label>
-        <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-      </div>
-      <div>
-        <label>ID:</label>
-        <input type="text" name="id" value={formData.id} onChange={handleChange} required />
+        <label>Mark:</label>
+        <input type="text" name="mark" value={formData.mark} onChange={handleChange} required />
       </div>
       <div>
         <label>File Upload:</label>
